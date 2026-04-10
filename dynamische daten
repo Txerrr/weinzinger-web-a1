@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamische Daten</title>
+</head>
+<body>
+
+    <h1>Dynamische Daten</h1>
+
+   
+    <h2>Stadtteile von Linz</h2>
+    <ul id="liste-linz"></ul>
+
+    <h2>Service Linz (User)</h2>
+    <ul id="service-linz"></ul>
+
+    <script>
+       
+        const linzDaten = [
+            "Urfahr",
+            "Auwiesen",
+            "Ebelsberg",
+            "Mein Name: Andreas Weinzinger",
+            "Name meiner Mutter: Renate Weinzinger"
+        ];
+
+        const listeLinz = document.getElementById("liste-linz");
+
+        linzDaten.forEach(eintrag => {
+            const li = document.createElement("li");
+            li.textContent = eintrag;
+            listeLinz.appendChild(li);
+        });
+
+        // 5.d. Daten von API laden
+        const serviceListe = document.getElementById("service-linz");
+
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then(response => response.json())
+            .then(daten => {
+                daten.forEach(user => {
+                    const li = document.createElement("li");
+                    li.textContent = user.name;
+                    serviceListe.appendChild(li);
+                });
+            })
+            .catch(error => {
+                console.error("Fehler beim Laden der Daten:", error);
+            });
+    </script>
+
+</body>
+</html>
